@@ -1,8 +1,4 @@
-use crate::{
-    color::Color,
-    image::{Image, Pixel},
-    position::Position,
-};
+use crate::{color::Color, image::Image, position::Position};
 
 pub trait Drawable {
     fn draw(&self, image: &mut Image);
