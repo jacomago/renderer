@@ -28,7 +28,7 @@ impl Circle {
     }
 }
 
-impl Drawable for dyn Colored {
+impl Drawable for Circle {
     fn draw(&self, image: &mut Image) {
         image.positions().iter().for_each(|p| {
             if let Some(color) = self.color(p) {

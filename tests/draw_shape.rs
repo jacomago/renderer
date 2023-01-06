@@ -5,7 +5,7 @@ fn test_draw_circle() {
     let mut image = Image::from_w_h(16, 12);
     let circle = Circle::new(5.0, Position::new(8.0, 6.0), Color::WHITE);
 
-    (Box::new(circle) as Box<dyn Colored>).draw(&mut image);
+    circle.draw(&mut image);
     assert_eq!(
         format!("{}", image),
         r#"................

@@ -4,6 +4,6 @@ fn main() {
     let mut image = Image::from_w_h(64, 48);
     let circle = Circle::new(5.0, Position::new(32.0, 24.0), Color::WHITE);
     
-    (Box::new(circle) as Box<dyn Colored>).draw(&mut image);
+    circle.draw(&mut image);
     println!("{}", image);
 }
