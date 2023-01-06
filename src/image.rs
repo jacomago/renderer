@@ -1,6 +1,6 @@
 use std::fmt::Display;
 
-use crate::{color::Color, position::Position};
+use crate::{color::Color, position::Position, prelude::Ppm};
 
 #[derive(Debug, Default, Clone)]
 pub struct Pixel {
@@ -11,6 +11,9 @@ impl Pixel {
     pub fn new(color: Color) -> Self {
         Self { color }
     }
+    pub fn rgb_bytes(&self) -> Vec<u8> {
+        self.color.rgb_bytes()
+    }
 }
 
 impl Display for Pixel {
@@ -18,10 +21,11 @@ impl Display for Pixel {
         write!(f, "{}", self.color.monotone())
     }
 }
+
 #[derive(Debug, Clone, Copy)]
 pub struct Dimensions {
-    width: usize,
-    height: usize,
+    pub width: usize,
+    pub height: usize,
 }
 
 impl Dimensions {
@@ -77,5 +81,19 @@ impl Display for Image {
             output.push('\n');
         });
         write!(f, "{}", output)
+    }
+}
+
+impl From<Image> for Ppm {
+    fn from(image: Image) -> Self {
+        Self::new(
+            image.dim,
+            255,
+            image
+                .pixels
+                .iter()
+                .flat_map(|r_p| r_p.iter().flat_map(|p| p.rgb_bytes()))
+                .collect(),
+        )
     }
 }

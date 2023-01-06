@@ -52,4 +52,8 @@ impl Color {
         green: 255,
         alpha: 255,
     };
+
+    pub fn rgb_bytes(&self) -> Vec<u8> {
+        vec![self.red, self.green, self.blue]
+    }
 }

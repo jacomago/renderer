@@ -4,3 +4,4 @@ pub use crate::position::Position;
 pub use crate::shape::Circle;
 pub use crate::shape::Colored;
 pub use crate::shape::Drawable;
+pub use crate::ppm::Ppm;
