@@ -1,7 +1,4 @@
-use std::{
-    fs::File,
-    io::{self, Write},
-};
+use std::io::{self, Write};
 
 use crate::image::Dimensions;
 
@@ -20,11 +17,11 @@ impl Ppm {
         }
     }
 
-    pub fn write(&self, file: &mut File) -> io::Result<()> {
-        writeln!(file, "P6")?;
-        writeln!(file, "{} {}", self.dim.width, self.dim.height)?;
-        writeln!(file, "{}", self.max_color_value)?;
-        file.write_all(&self.bytes)?;
+    pub fn write(&self, output: &mut dyn Write) -> io::Result<()> {
+        writeln!(output, "P6")?;
+        writeln!(output, "{} {}", self.dim.width, self.dim.height)?;
+        writeln!(output, "{}", self.max_color_value)?;
+        output.write_all(&self.bytes)?;
         Ok(())
     }
 }
