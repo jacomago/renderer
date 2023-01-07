@@ -48,8 +48,16 @@ impl Camera {
         }
     }
 
+    pub fn centre(&self) -> Vector3D<f32> {
+        self.position + (self.direction.up + self.direction.right) * self.focal_distance
+    }
+
     pub fn ray(&self, position: &Position2D<usize>) -> Ray {
-        Ray(Vector3D::default())
+        let screen_position = self.centre()
+            + self.direction.right * position.x as f32
+            + self.direction.up * position.y as f32;
+        let d = screen_position - self.position;
+        Ray(d)
     }
 
     pub fn position(&self) -> Vector3D<f32> {

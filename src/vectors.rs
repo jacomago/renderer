@@ -61,3 +61,14 @@ impl<T: Sub<Output = T>> Sub for Vector3D<T> {
         }
     }
 }
+impl<T: Mul<Output = T> + Copy> Mul<T> for Vector3D<T> {
+    type Output = Vector3D<T>;
+
+    fn mul(self, rhs: T) -> Self::Output {
+        Self {
+            x: self.x * rhs,
+            y: self.y * rhs,
+            z: self.z * rhs,
+        }
+    }
+}
