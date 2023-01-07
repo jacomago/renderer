@@ -11,7 +11,7 @@ impl Scene {
     }
 
     pub fn render(&self) -> Image {
-        let image = Image::new(self.camera.screen.size.into());
+        let mut image = Image::new(self.camera.screen.size);
         image.positions().iter().for_each(|p| {
             let ray = self.camera.ray(p);
             let mut color_intersections: Vec<(Color, Vector3D<f32>)> = self
@@ -25,7 +25,7 @@ impl Scene {
                 i.distance_squared(self.camera.position())
                     .total_cmp(&j.distance_squared(self.camera.position()))
             });
-            color_intersections.iter().product()
+            image.pixel_mut(p).unwrap().color = color_intersections.first().unwrap().0;
         });
         image
     }

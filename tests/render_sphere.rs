@@ -11,7 +11,8 @@ fn test_draw_sphere() {
         Camera::new(
             Vector3D::new(0.0, 0.0, -20.0),
             Direction::new(Vector3D::new(0.0, 1.0, 0.0), Vector3D::new(1.0, 0.0, 0.0)),
-            Screen::new(Dimensions::new(64, 48), Vector3D::new(0.0, 0.0, -10.0)),
+            Screen::new(Dimensions::new(64, 48)),
+            10.0,
         ),
     );
     let image = scene.render();

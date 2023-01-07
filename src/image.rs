@@ -35,6 +35,12 @@ impl Image {
             pixels: vec![vec![Pixel::default(); dim.w()]; dim.h()],
         }
     }
+    pub fn from_pixels(pixels: Vec<Vec<Pixel>>) -> Self {
+        Self {
+            dim: Dimensions::new(pixels.first().unwrap().len(), pixels.len()),
+            pixels,
+        }
+    }
     pub fn from_w_h(w: usize, h: usize) -> Self {
         Self::new(Dimensions::new(w, h))
     }
@@ -52,9 +58,7 @@ impl Image {
     }
 
     pub fn positions(&self) -> Vec<Position2D<usize>> {
-        (0..self.dim.h())
-            .flat_map(|col| (0..self.dim.w()).map(move |row| Position2D::new(row, col)))
-            .collect()
+        self.dim.positions()
     }
 }
 
