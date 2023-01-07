@@ -1,7 +1,7 @@
 use crate::{
     color::{Color, Coloring},
     image::Image,
-    position::Position,
+    position::Position2D,
 };
 
 pub trait Drawable {
@@ -9,17 +9,17 @@ pub trait Drawable {
 }
 
 pub trait Colored {
-    fn color(&self, position: &Position<usize>) -> Option<Color>;
+    fn color(&self, position: &Position2D<usize>) -> Option<Color>;
 }
 
 pub struct Circle {
     radius: f32,
-    position: Position<f32>,
+    position: Position2D<f32>,
     coloring: Coloring,
 }
 
 impl Circle {
-    pub fn new(radius: f32, position: Position<f32>, coloring: Coloring) -> Self {
+    pub fn new(radius: f32, position: Position2D<f32>, coloring: Coloring) -> Self {
         Self {
             radius,
             position,
@@ -41,7 +41,7 @@ impl Drawable for Circle {
 }
 
 impl Colored for Circle {
-    fn color(&self, position: &Position<usize>) -> Option<Color> {
+    fn color(&self, position: &Position2D<usize>) -> Option<Color> {
         if (self.position.x - position.x as f32).powi(2)
             + (self.position.y - position.y as f32).powi(2)
             < self.radius.powi(2)
@@ -52,11 +52,11 @@ impl Colored for Circle {
     }
 }
 trait HorizontalPercentage {
-    fn horizontal_percentage(&self, position: &Position<usize>) -> f32;
+    fn horizontal_percentage(&self, position: &Position2D<usize>) -> f32;
 }
 
 impl HorizontalPercentage for Circle {
-    fn horizontal_percentage(&self, position: &Position<usize>) -> f32 {
+    fn horizontal_percentage(&self, position: &Position2D<usize>) -> f32 {
         (self.position.x - self.radius - position.x as f32).abs() / (2.0 * self.radius)
     }
 }
