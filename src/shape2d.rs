@@ -1,7 +1,7 @@
 use crate::{
     color::{Color, Coloring},
     image::Image,
-    position::Position2D,
+    vectors::Position2D,
 };
 
 pub trait Drawable {

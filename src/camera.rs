@@ -1,4 +1,4 @@
-use crate::{image::Dimensions, position::Vector3D};
+use crate::{dimensions::Dimensions, vectors::Vector3D};
 
 pub struct Direction {
     up: Vector3D<f32>,
@@ -12,12 +12,12 @@ impl Direction {
 }
 
 pub struct Screen {
-    size: Dimensions,
+    pub size: Dimensions<i32>,
     position: Vector3D<f32>,
 }
 
 impl Screen {
-    fn new(size: Dimensions, position: Vector3D<f32>) -> Self {
+    pub fn new(size: Dimensions<i32>, position: Vector3D<f32>) -> Self {
         Self { size, position }
     }
 }
@@ -25,7 +25,7 @@ impl Screen {
 pub struct Camera {
     position: Vector3D<f32>,
     direction: Direction,
-    screen: Screen,
+    pub screen: Screen,
 }
 
 impl Camera {
@@ -35,5 +35,11 @@ impl Camera {
             direction,
             screen,
         }
+    }
+
+    pub fn focal_distance(&self) -> f32 {
+        (self.position - self.screen.position)
+            .distance_squared()
+            .sqrt()
     }
 }

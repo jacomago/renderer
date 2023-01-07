@@ -1,6 +1,6 @@
 use std::fmt::Display;
 
-use crate::{color::Color, position::Position2D, prelude::Ppm};
+use crate::{color::Color, dimensions::Dimensions, prelude::Ppm, vectors::Position2D};
 
 #[derive(Debug, Default, Clone)]
 pub struct Pixel {
@@ -22,29 +22,17 @@ impl Display for Pixel {
     }
 }
 
-#[derive(Debug, Clone, Copy)]
-pub struct Dimensions {
-    pub width: usize,
-    pub height: usize,
-}
-
-impl Dimensions {
-    fn new(width: usize, height: usize) -> Self {
-        Self { width, height }
-    }
-}
-
 #[derive(Debug)]
 pub struct Image {
-    dim: Dimensions,
+    dim: Dimensions<usize>,
     pixels: Vec<Vec<Pixel>>,
 }
 
 impl Image {
-    pub fn new(dim: Dimensions) -> Self {
+    pub fn new(dim: Dimensions<usize>) -> Self {
         Self {
             dim,
-            pixels: vec![vec![Pixel::default(); dim.width]; dim.height],
+            pixels: vec![vec![Pixel::default(); dim.w()]; dim.h()],
         }
     }
     pub fn from_w_h(w: usize, h: usize) -> Self {
@@ -64,8 +52,8 @@ impl Image {
     }
 
     pub fn positions(&self) -> Vec<Position2D<usize>> {
-        (0..self.dim.height)
-            .flat_map(|col| (0..self.dim.width).map(move |row| Position2D::new(row, col)))
+        (0..self.dim.h())
+            .flat_map(|col| (0..self.dim.w()).map(move |row| Position2D::new(row, col)))
             .collect()
     }
 }

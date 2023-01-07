@@ -1,9 +1,11 @@
-mod color;
-mod image;
-mod shape2d;
-mod position;
-mod ppm;
-mod shape3d;
 mod camera;
+mod color;
+mod dimensions;
+mod image;
+mod ppm;
+mod scene;
+mod shape2d;
+mod shape3d;
+mod vectors;
 
 pub mod prelude;
