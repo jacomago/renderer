@@ -1,5 +1,7 @@
 use std::ops::{Add, Mul, Sub};
 
+pub struct Ray(pub Vector3D<f32>);
+
 pub struct Position2D<T> {
     pub x: T,
     pub y: T,
@@ -11,7 +13,7 @@ impl<T> Position2D<T> {
     }
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 pub struct Vector3D<T> {
     pub x: T,
     pub y: T,
@@ -35,11 +37,16 @@ impl<T: Mul<Output = T> + Add<Output = T> + Copy> Vector3D<T> {
         Self { x, y, z }
     }
 
-    pub fn dot(self, rhs: &Self) -> T {
+    pub fn dot(&self, rhs: &Self) -> T {
         self.x * rhs.x + self.y * rhs.y + self.z * rhs.z
     }
-    pub fn distance_squared(self) -> T {
+    pub fn length_squared(&self) -> T {
         self.dot(&self)
+    }
+}
+impl<T: Mul<Output = T> + Add<Output = T> + Copy + Sub<Output = T>> Vector3D<T> {
+    pub fn distance_squared(self, rhs: Self) -> T {
+        (self - rhs).length_squared()
     }
 }
 

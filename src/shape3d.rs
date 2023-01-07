@@ -1,4 +1,9 @@
-use crate::{prelude::Coloring, vectors::Vector3D};
+use crate::{
+    color::Color,
+    prelude::Coloring,
+    shape2d::Colored,
+    vectors::{Position2D, Ray, Vector3D},
+};
 
 pub struct Sphere {
     position: Vector3D<f32>,
@@ -16,5 +21,16 @@ impl Sphere {
     }
 }
 
-pub trait Shape3d {}
-impl Shape3d for Sphere {}
+pub trait Shape3d {
+    fn intersection(&self, ray: &Ray) -> Option<Vector3D<f32>>;
+    fn color(&self, position: &Vector3D<f32>) -> Option<Color>;
+}
+impl Shape3d for Sphere {
+    fn intersection(&self, ray: &Ray) -> Option<Vector3D<f32>> {
+        todo!()
+    }
+
+    fn color(&self, position: &Vector3D<f32>) -> Option<Color> {
+        todo!()
+    }
+}

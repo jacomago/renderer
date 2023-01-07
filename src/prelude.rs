@@ -1,5 +1,4 @@
 pub use crate::camera::Camera;
-pub use crate::camera::Direction;
 pub use crate::camera::Screen;
 pub use crate::color::Color;
 pub use crate::color::Coloring;
@@ -8,7 +7,6 @@ pub use crate::image::Image;
 pub use crate::ppm::Ppm;
 pub use crate::scene::Scene;
 pub use crate::shape2d::Circle;
-pub use crate::shape2d::Colored;
 pub use crate::shape2d::Drawable;
 pub use crate::shape3d::Sphere;
 pub use crate::vectors::Position2D;

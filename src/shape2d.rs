@@ -1,12 +1,13 @@
 use crate::{
     color::{Color, Coloring},
     image::Image,
-    vectors::Position2D,
+    vectors::Position2D, 
 };
 
 pub trait Drawable {
     fn draw(&self, image: &mut Image);
 }
+
 
 pub trait Colored {
     fn color(&self, position: &Position2D<usize>) -> Option<Color>;
