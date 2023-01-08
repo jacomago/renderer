@@ -1,8 +1,8 @@
 use std::fmt::Display;
 
-use crate::{color::Color, position::Position, prelude::Ppm};
+use crate::{color::Color, dimensions::Dimensions, prelude::Ppm, vectors::Position2D};
 
-#[derive(Debug, Default, Clone)]
+#[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub struct Pixel {
     pub color: Color,
 }
@@ -22,51 +22,46 @@ impl Display for Pixel {
     }
 }
 
-#[derive(Debug, Clone, Copy)]
-pub struct Dimensions {
-    pub width: usize,
-    pub height: usize,
-}
-
-impl Dimensions {
-    fn new(width: usize, height: usize) -> Self {
-        Self { width, height }
-    }
-}
-
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 pub struct Image {
-    dim: Dimensions,
+    dim: Dimensions<usize>,
     pixels: Vec<Vec<Pixel>>,
 }
 
 impl Image {
-    pub fn new(dim: Dimensions) -> Self {
+    pub fn new(dim: Dimensions<usize>) -> Self {
         Self {
             dim,
-            pixels: vec![vec![Pixel::default(); dim.width]; dim.height],
+            pixels: vec![vec![Pixel::default(); dim.w()]; dim.h()],
+        }
+    }
+    pub fn dimensions(&self) -> Dimensions<usize> {
+        self.dim
+    }
+    pub fn from_pixels(pixels: Vec<Vec<Pixel>>) -> Self {
+        Self {
+            dim: Dimensions::new(pixels.first().unwrap().len(), pixels.len()),
+            pixels,
         }
     }
     pub fn from_w_h(w: usize, h: usize) -> Self {
         Self::new(Dimensions::new(w, h))
     }
-    pub fn pixel(&self, position: &Position<usize>) -> Option<&Pixel> {
+    pub fn pixel(&self, position: &Position2D<usize>) -> Option<&Pixel> {
         match self.pixels.get(position.y) {
             Some(row_pixels) => row_pixels.get(position.x),
             None => None,
         }
     }
-    pub fn pixel_mut(&mut self, position: &Position<usize>) -> Option<&mut Pixel> {
+    pub fn pixel_mut(&mut self, position: &Position2D<usize>) -> Option<&mut Pixel> {
         match self.pixels.get_mut(position.y) {
             Some(row_pixels) => row_pixels.get_mut(position.x),
             None => None,
         }
     }
 
-    pub fn positions(&self) -> Vec<Position<usize>> {
-        (0..self.dim.height)
-            .flat_map(|col| (0..self.dim.width).map(move |row| Position::new(row, col)))
-            .collect()
+    pub fn positions(&self) -> Vec<Position2D<usize>> {
+        self.dim.positions()
     }
 }
 

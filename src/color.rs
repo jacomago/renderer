@@ -14,7 +14,7 @@ impl Display for Monotone {
     }
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Color {
     red: u8,
     blue: u8,
@@ -61,9 +61,9 @@ impl Color {
     };
 
     pub const YELLOW: Self = Self {
-        red: 80,
-        blue: 80,
-        green: 255,
+        red: 255,
+        blue: 255,
+        green: 0,
         alpha: 255,
     };
 
@@ -101,7 +101,11 @@ pub enum Coloring {
     Fill(Color),
     Gradient(Gradient),
 }
-
+impl Default for Coloring {
+    fn default() -> Self {
+        Coloring::Fill(Color::default())
+    }
+}
 impl Coloring {
     pub fn color(&self, percentage: f32) -> Color {
         match self {
