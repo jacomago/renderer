@@ -3,14 +3,23 @@ use std::io::{self};
 use renderer::prelude::*;
 
 fn main() -> io::Result<()> {
-    let mut image = Image::from_w_h(128, 96);
-    let circle = Circle::new(
-        50.0,
-        Position2D::new(32.0, 24.0),
-        Coloring::gradient((Color::RED, Color::YELLOW)),
+    let dim = Dimensions::new(1280, 960);
+    let mut image = Image::new(dim);
+    let scene = Scene::new(
+        vec![Box::new(Sphere::new(
+            Vector3D::new(0.0, 0.0, 0.0),
+            10.0,
+            Coloring::Fill(Color::RED),
+        ))],
+        Camera::new(
+            Vector3D::new(0.0, 0.0, -20.0),
+            Vector3D::new(0.0, 1.0, 0.0),
+            Vector3D::new(1.0, 0.0, 0.0),
+            10.0,
+            dim,
+        ),
     );
-
-    circle.draw(&mut image);
+    scene.render(&mut image);
     Ppm::from(image).write(&mut io::stdout())?;
     Ok(())
 }
