@@ -58,20 +58,51 @@ impl Shape3d for Sphere {
 
 impl HorizontalPercentage<Vector3D<f32>> for Sphere {
     fn horizontal_percentage(&self, position: &Vector3D<f32>) -> f32 {
-        (self.position.x - self.radius - position.x as f32).abs() / (2.0 * self.radius)
+        (self.position.x() - self.radius - position.x() as f32).abs() / (2.0 * self.radius)
     }
 }
+
 impl Contains<Vector3D<f32>> for Sphere {
     fn contains(&self, position: &Vector3D<f32>) -> bool {
-        (self.position.x - position.x as f32).powi(2)
-            + (self.position.y - position.y as f32).powi(2)
-            + (self.position.z - position.z as f32).powi(2)
-            < self.radius.powi(2)
+        self.position.dot(position) < self.radius.powi(2)
     }
 }
 
 impl Colored<Vector3D<f32>> for Sphere {
     fn coloring(&self) -> &Coloring {
         &self.coloring
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_intersection_origin() {
+        let sphere = Sphere::new(Vector3D::default(), 1.0, Coloring::default());
+        let ray = Ray::new(Vector3D::default(), Vector3D::new(0.0, 0.0, 1.0));
+        let intersections = sphere.intersection(&ray);
+
+        assert_eq!(
+            vec![Vector3D::new(0.0, 0.0, 1.0), Vector3D::new(0.0, 0.0, -1.0)],
+            intersections
+        );
+    }
+    #[test]
+    fn test_intersection_one() {
+        let sphere = Sphere::new(Vector3D::new(1.0, 0.0, 0.0), 1.0, Coloring::default());
+        let ray = Ray::new(Vector3D::default(), Vector3D::new(0.0, 0.0, 1.0));
+        let intersections = sphere.intersection(&ray);
+
+        assert_eq!(vec![Vector3D::new(0.0, 0.0, 0.0)], intersections);
+    }
+    #[test]
+    fn test_intersection_none() {
+        let sphere = Sphere::new(Vector3D::new(1.5, 0.0, 0.0), 1.0, Coloring::default());
+        let ray = Ray::new(Vector3D::default(), Vector3D::new(0.0, 0.0, 1.0));
+        let intersections = sphere.intersection(&ray);
+
+        assert_eq!(Vec::<Vector3D<f32>>::new(), intersections);
     }
 }

@@ -29,13 +29,17 @@ impl<T> Position2D<T> {
     }
 }
 
-#[derive(Debug, Clone, Copy, Default)]
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
 pub struct Vector3D<T> {
-    pub x: T,
-    pub y: T,
-    pub z: T,
+    x: T,
+    y: T,
+    z: T,
 }
-
+impl<T: Copy> Vector3D<T> {
+    pub fn x(&self) -> T {
+        self.x
+    }
+}
 impl<T: Add<Output = T>> Add for Vector3D<T> {
     type Output = Vector3D<T>;
 

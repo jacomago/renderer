@@ -101,7 +101,11 @@ pub enum Coloring {
     Fill(Color),
     Gradient(Gradient),
 }
-
+impl Default for Coloring {
+    fn default() -> Self {
+        Coloring::Fill(Color::default())
+    }
+}
 impl Coloring {
     pub fn color(&self, percentage: f32) -> Color {
         match self {
