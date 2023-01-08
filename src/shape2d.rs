@@ -1,16 +1,11 @@
 use crate::{
     color::{Color, Coloring},
     image::Image,
-    vectors::Position2D, 
+    vectors::Position2D, shape::{Colored, HorizontalPercentage},
 };
 
 pub trait Drawable {
     fn draw(&self, image: &mut Image);
-}
-
-
-pub trait Colored {
-    fn color(&self, position: &Position2D<usize>) -> Option<Color>;
 }
 
 pub struct Circle {
@@ -41,7 +36,7 @@ impl Drawable for Circle {
     }
 }
 
-impl Colored for Circle {
+impl Colored<Position2D<usize>> for Circle {
     fn color(&self, position: &Position2D<usize>) -> Option<Color> {
         if (self.position.x - position.x as f32).powi(2)
             + (self.position.y - position.y as f32).powi(2)
@@ -52,11 +47,7 @@ impl Colored for Circle {
         None
     }
 }
-trait HorizontalPercentage {
-    fn horizontal_percentage(&self, position: &Position2D<usize>) -> f32;
-}
-
-impl HorizontalPercentage for Circle {
+impl HorizontalPercentage<Position2D<usize>> for Circle {
     fn horizontal_percentage(&self, position: &Position2D<usize>) -> f32 {
         (self.position.x - self.radius - position.x as f32).abs() / (2.0 * self.radius)
     }

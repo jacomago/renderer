@@ -18,8 +18,12 @@ impl Scene {
                 .objects
                 .iter()
                 .map(|object| (object, object.intersection(&ray)))
-                .filter(|(_, i)| i.is_some())
-                .map(|(o, i)| (o.color(&i.unwrap()).unwrap(), i.unwrap()))
+                .filter(|(_, i)| !i.is_empty())
+                .flat_map(|(o, i)| {
+                    i.iter()
+                        .map(|v| (o.color(v).unwrap(), *v))
+                        .collect::<Vec<(Color, Vector3D<f32>)>>()
+                })
                 .collect();
             color_intersections.sort_by(|(_, i), (_, j)| {
                 i.distance_squared(self.camera.position())

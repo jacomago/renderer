@@ -1,8 +1,8 @@
 use std::ops::{Add, Mul, Sub};
 
 pub struct Ray {
-    starting_point: Vector3D<f32>,
-    direction: Vector3D<f32>,
+    pub starting_point: Vector3D<f32>,
+    pub direction: Vector3D<f32>,
 }
 
 impl Ray {
@@ -11,6 +11,10 @@ impl Ray {
             starting_point,
             direction,
         }
+    }
+
+    pub fn eval(&self, t: f32) -> Vector3D<f32> {
+        self.starting_point + self.direction * t
     }
 }
 
