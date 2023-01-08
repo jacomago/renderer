@@ -1,6 +1,6 @@
 use crate::vectors::Position2D;
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Dimensions<T: Copy> {
     width: T,
     height: T,

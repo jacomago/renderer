@@ -27,6 +27,8 @@ impl Screen {
             direction,
         }
     }
+    // Maps from pixel dimensions to screen dimensions
+    // adding 0.5 to be in centre of pixel
     fn screen_position(
         &self,
         position: &Position2D<usize>,
@@ -34,10 +36,10 @@ impl Screen {
     ) -> Vector3D<f32> {
         self.position
             + self.direction.right
-                * (position.x as f32 - self.size.w() as f32 / 2.0)
+                * (position.x as f32 + 0.5 - self.size.w() as f32 / 2.0)
                 * (self.size.w() as f32 / dimensions.w() as f32)
             + self.direction.up
-                * (position.y as f32 - self.size.h() as f32 / 2.0)
+                * (position.y as f32 + 0.5 - self.size.h() as f32 / 2.0)
                 * (self.size.h() as f32 / dimensions.h() as f32)
     }
 }
@@ -97,7 +99,7 @@ mod tests {
             1.0,
             Dimensions::new(5, 5),
         );
-        let ray = camera.ray(&Position2D::new(0, 0), Dimensions::new(5, 5));
+        let ray = camera.ray(&Position2D::new(2, 2), Dimensions::new(5, 5));
         assert_eq!(
             Ray::new(Vector3D::new(0.0, 0.0, -4.0), Vector3D::new(0.0, 0.0, 5.0),),
             ray

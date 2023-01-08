@@ -2,7 +2,7 @@ use std::fmt::Display;
 
 use crate::{color::Color, dimensions::Dimensions, prelude::Ppm, vectors::Position2D};
 
-#[derive(Debug, Default, Clone)]
+#[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub struct Pixel {
     pub color: Color,
 }
@@ -22,7 +22,7 @@ impl Display for Pixel {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 pub struct Image {
     dim: Dimensions<usize>,
     pixels: Vec<Vec<Pixel>>,

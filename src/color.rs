@@ -14,7 +14,7 @@ impl Display for Monotone {
     }
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Color {
     red: u8,
     blue: u8,
