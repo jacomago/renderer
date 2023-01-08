@@ -21,7 +21,9 @@ impl Scene {
                 .filter(|(_, i)| !i.is_empty())
                 .flat_map(|(o, i)| {
                     i.iter()
-                        .map(|v| (o.color(v).unwrap(), *v))
+                        .map(|v| (o.color(v), *v))
+                        .filter(|(o, _)| o.is_some())
+                        .map(|(o, v)| (o.unwrap(), v))
                         .collect::<Vec<(Color, Vector3D<f32>)>>()
                 })
                 .collect();
@@ -29,7 +31,9 @@ impl Scene {
                 i.distance_squared(self.camera.position())
                     .total_cmp(&j.distance_squared(self.camera.position()))
             });
-            image.pixel_mut(p).unwrap().color = color_intersections.first().unwrap().0;
+            if let Some((color, _)) = color_intersections.first() {
+                image.pixel_mut(p).unwrap().color = *color;
+            }
         });
         image
     }
