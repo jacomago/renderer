@@ -1,6 +1,18 @@
 use std::ops::{Add, Mul, Sub};
 
-pub struct Ray(pub Vector3D<f32>);
+pub struct Ray {
+    starting_point: Vector3D<f32>,
+    direction: Vector3D<f32>,
+}
+
+impl Ray {
+    pub fn new(starting_point: Vector3D<f32>, direction: Vector3D<f32>) -> Self {
+        Self {
+            starting_point,
+            direction,
+        }
+    }
+}
 
 pub struct Position2D<T> {
     pub x: T,

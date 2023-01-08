@@ -57,7 +57,7 @@ impl Camera {
             + self.direction.right * position.x as f32
             + self.direction.up * position.y as f32;
         let d = screen_position - self.position;
-        Ray(d)
+        Ray::new(self.position, d)
     }
 
     pub fn position(&self) -> Vector3D<f32> {

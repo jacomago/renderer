@@ -26,6 +26,8 @@ pub trait Shape3d {
     fn color(&self, position: &Vector3D<f32>) -> Option<Color>;
 }
 impl Shape3d for Sphere {
+    // (v- p)(v-p) = r**2
+    // (ray_v - p)(ray_v - p) = r**2
     fn intersection(&self, ray: &Ray) -> Option<Vector3D<f32>> {
         todo!()
     }
