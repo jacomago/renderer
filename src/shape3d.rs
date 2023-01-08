@@ -1,10 +1,9 @@
 use std::vec;
 
 use crate::{
-    color::Color,
     prelude::Coloring,
-    shape::{Colored, HorizontalPercentage},
-    vectors::{Position2D, Ray, Vector3D},
+    shape::{Colored, Contains, HorizontalPercentage},
+    vectors::{Ray, Vector3D},
 };
 
 pub struct Sphere {
@@ -62,16 +61,17 @@ impl HorizontalPercentage<Vector3D<f32>> for Sphere {
         (self.position.x - self.radius - position.x as f32).abs() / (2.0 * self.radius)
     }
 }
-
-impl Colored<Vector3D<f32>> for Sphere {
-    fn color(&self, position: &Vector3D<f32>) -> Option<Color> {
-        if (self.position.x - position.x as f32).powi(2)
+impl Contains<Vector3D<f32>> for Sphere {
+    fn contains(&self, position: &Vector3D<f32>) -> bool {
+        (self.position.x - position.x as f32).powi(2)
             + (self.position.y - position.y as f32).powi(2)
             + (self.position.z - position.z as f32).powi(2)
             < self.radius.powi(2)
-        {
-            return Some(self.coloring.color(self.horizontal_percentage(position)));
-        }
-        None
+    }
+}
+
+impl Colored<Vector3D<f32>> for Sphere {
+    fn coloring(&self) -> &Coloring {
+        &self.coloring
     }
 }

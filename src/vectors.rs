@@ -57,7 +57,7 @@ impl<T: Mul<Output = T> + Add<Output = T> + Copy> Vector3D<T> {
         self.x * rhs.x + self.y * rhs.y + self.z * rhs.z
     }
     pub fn length_squared(&self) -> T {
-        self.dot(&self)
+        self.dot(self)
     }
 }
 impl<T: Mul<Output = T> + Add<Output = T> + Copy + Sub<Output = T>> Vector3D<T> {

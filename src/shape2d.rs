@@ -1,7 +1,8 @@
 use crate::{
-    color::{Color, Coloring},
+    color::Coloring,
     image::Image,
-    vectors::Position2D, shape::{Colored, HorizontalPercentage},
+    shape::{Colored, Contains, HorizontalPercentage},
+    vectors::Position2D,
 };
 
 pub trait Drawable {
@@ -36,15 +37,16 @@ impl Drawable for Circle {
     }
 }
 
-impl Colored<Position2D<usize>> for Circle {
-    fn color(&self, position: &Position2D<usize>) -> Option<Color> {
-        if (self.position.x - position.x as f32).powi(2)
+impl Contains<Position2D<usize>> for Circle {
+    fn contains(&self, position: &Position2D<usize>) -> bool {
+        (self.position.x - position.x as f32).powi(2)
             + (self.position.y - position.y as f32).powi(2)
             < self.radius.powi(2)
-        {
-            return Some(self.coloring.color(self.horizontal_percentage(position)));
-        }
-        None
+    }
+}
+impl Colored<Position2D<usize>> for Circle {
+    fn coloring(&self) -> &Coloring {
+        &self.coloring
     }
 }
 impl HorizontalPercentage<Position2D<usize>> for Circle {
