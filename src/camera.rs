@@ -14,53 +14,85 @@ impl Direction {
     }
 }
 pub struct Screen {
-    pub size: Dimensions<usize>,
+    size: Dimensions<usize>,
+    position: Vector3D<f32>,
+    direction: Direction,
 }
 
 impl Screen {
-    pub fn new(size: Dimensions<usize>) -> Self {
-        Self { size }
+    pub fn new(size: Dimensions<usize>, position: Vector3D<f32>, direction: Direction) -> Self {
+        Self {
+            size,
+            position,
+            direction,
+        }
     }
-    pub fn positions(&self) -> Vec<Position2D<usize>> {
-        self.size.positions()
+    fn screen_position(&self, position: &Position2D<usize>) -> Vector3D<f32> {
+        self.position
+            + self.direction.right * position.x as f32
+            + self.direction.up * position.y as f32
     }
 }
 
 pub struct Camera {
     position: Vector3D<f32>,
-    direction: Direction,
-    pub screen: Screen,
-    focal_distance: f32,
+    screen: Screen,
 }
-
+fn screen_position(focal_distance: f32) -> Vector3D<f32> {
+    Vector3D::new(0.0, 0.0, focal_distance)
+}
 impl Camera {
     pub fn new(
         position: Vector3D<f32>,
-        direction: Direction,
-        screen: Screen,
+        up: Vector3D<f32>,
+        right: Vector3D<f32>,
         focal_distance: f32,
+        screen_dim: Dimensions<usize>,
     ) -> Self {
         Self {
             position,
-            direction,
-            screen,
-            focal_distance,
+            screen: Screen::new(
+                screen_dim,
+                screen_position(focal_distance),
+                Direction::new(up, right),
+            ),
         }
     }
 
-    pub fn screen_centre(&self) -> Vector3D<f32> {
-        self.position + (self.direction.up + self.direction.right) * self.focal_distance
-    }
-
     pub fn ray(&self, position: &Position2D<usize>) -> Ray {
-        let screen_position = self.screen_centre()
-            + self.direction.right * position.x as f32
-            + self.direction.up * position.y as f32;
+        let screen_position = self.screen.screen_position(position);
         let d = screen_position - self.position;
         Ray::new(self.position, d)
     }
 
     pub fn position(&self) -> Vector3D<f32> {
         self.position
+    }
+
+    pub fn size(&self) -> Dimensions<usize> {
+        self.screen.size
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::vectors::Vector3D;
+
+    use super::*;
+
+    #[test]
+    fn test_ray() {
+        let camera = Camera::new(
+            Vector3D::new(0.0, 0.0, -4.0),
+            Vector3D::new(0.0, 1.0, 0.0),
+            Vector3D::new(1.0, 0.0, 0.0),
+            1.0,
+            Dimensions::new(5, 5),
+        );
+        let ray = camera.ray(&Position2D::new(0, 0));
+        assert_eq!(
+            Ray::new(Vector3D::new(0.0, 0.0, -4.0), Vector3D::new(0.0, 0.0, 5.0),),
+            ray
+        );
     }
 }

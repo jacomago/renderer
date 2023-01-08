@@ -1,5 +1,6 @@
 use std::ops::{Add, Mul, Sub};
 
+#[derive(Debug, PartialEq)]
 pub struct Ray {
     pub starting_point: Vector3D<f32>,
     pub direction: Vector3D<f32>,
