@@ -61,9 +61,9 @@ impl Color {
     };
 
     pub const YELLOW: Self = Self {
-        red: 80,
-        blue: 80,
-        green: 255,
+        red: 255,
+        blue: 255,
+        green: 0,
         alpha: 255,
     };
 
