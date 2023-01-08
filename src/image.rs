@@ -35,6 +35,9 @@ impl Image {
             pixels: vec![vec![Pixel::default(); dim.w()]; dim.h()],
         }
     }
+    pub fn dimensions(&self) -> Dimensions<usize> {
+        self.dim
+    }
     pub fn from_pixels(pixels: Vec<Vec<Pixel>>) -> Self {
         Self {
             dim: Dimensions::new(pixels.first().unwrap().len(), pixels.len()),

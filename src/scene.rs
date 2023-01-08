@@ -10,10 +10,9 @@ impl Scene {
         Self { objects, camera }
     }
 
-    pub fn render(&self) -> Image {
-        let mut image = Image::new(self.camera.size());
+    pub fn render(&self, image: &mut Image) {
         image.positions().iter().for_each(|p| {
-            let ray = self.camera.ray(p);
+            let ray = self.camera.ray(p, image.dimensions());
             let mut color_intersections: Vec<(Color, Vector3D<f32>)> = self
                 .objects
                 .iter()
@@ -35,6 +34,5 @@ impl Scene {
                 image.pixel_mut(p).unwrap().color = *color;
             }
         });
-        image
     }
 }

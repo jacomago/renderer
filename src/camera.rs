@@ -27,10 +27,18 @@ impl Screen {
             direction,
         }
     }
-    fn screen_position(&self, position: &Position2D<usize>) -> Vector3D<f32> {
+    fn screen_position(
+        &self,
+        position: &Position2D<usize>,
+        dimensions: Dimensions<usize>,
+    ) -> Vector3D<f32> {
         self.position
-            + self.direction.right * position.x as f32
-            + self.direction.up * position.y as f32
+            + self.direction.right
+                * (position.x as f32 - self.size.w() as f32 / 2.0)
+                * (self.size.w() as f32 / dimensions.w() as f32)
+            + self.direction.up
+                * (position.y as f32 - self.size.h() as f32 / 2.0)
+                * (self.size.h() as f32 / dimensions.h() as f32)
     }
 }
 
@@ -59,8 +67,8 @@ impl Camera {
         }
     }
 
-    pub fn ray(&self, position: &Position2D<usize>) -> Ray {
-        let screen_position = self.screen.screen_position(position);
+    pub fn ray(&self, position: &Position2D<usize>, dimensions: Dimensions<usize>) -> Ray {
+        let screen_position = self.screen.screen_position(position, dimensions);
         let d = screen_position - self.position;
         Ray::new(self.position, d)
     }
@@ -89,7 +97,7 @@ mod tests {
             1.0,
             Dimensions::new(5, 5),
         );
-        let ray = camera.ray(&Position2D::new(0, 0));
+        let ray = camera.ray(&Position2D::new(0, 0), Dimensions::new(5, 5));
         assert_eq!(
             Ray::new(Vector3D::new(0.0, 0.0, -4.0), Vector3D::new(0.0, 0.0, 5.0),),
             ray

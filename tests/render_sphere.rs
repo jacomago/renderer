@@ -9,14 +9,15 @@ fn test_draw_small_sphere() {
             Coloring::Fill(Color::WHITE),
         ))],
         Camera::new(
-            Vector3D::new(0.0, 0.0, -4.0),
+            Vector3D::new(0.0, 0.0, -6.0),
             Vector3D::new(0.0, 1.0, 0.0),
             Vector3D::new(1.0, 0.0, 0.0),
             2.0,
-            Dimensions::new(4, 4),
+            Dimensions::new(3, 3),
         ),
     );
-    let image = scene.render();
+    let mut image = Image::new(Dimensions::new(3, 3));
+    scene.render(&mut image);
 
     assert_eq!(
         format!("{}", image),
@@ -37,19 +38,19 @@ fn test_draw_sphere() {
             Coloring::Fill(Color::WHITE),
         ))],
         Camera::new(
-            Vector3D::new(0.0, 0.0, -20.0),
+            Vector3D::new(0.0, 0.0, -60.0),
             Vector3D::new(0.0, 1.0, 0.0),
             Vector3D::new(1.0, 0.0, 0.0),
-            10.0,
+            5.0,
             Dimensions::new(16, 12),
         ),
     );
-    let image = scene.render();
+    let mut image = Image::new(Dimensions::new(16, 12));
+    scene.render(&mut image);
 
     assert_eq!(
         format!("{}", image),
         r#"................
-................
 ......xxxxx.....
 .....xxxxxxx....
 ....xxxxxxxxx...
