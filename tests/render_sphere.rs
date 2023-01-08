@@ -13,18 +13,18 @@ fn test_draw_small_sphere() {
             Vector3D::new(0.0, 1.0, 0.0),
             Vector3D::new(1.0, 0.0, 0.0),
             2.0,
-            Dimensions::new(3, 3),
+            Dimensions::new(4, 4),
         ),
     );
-    let mut image = Image::new(Dimensions::new(3, 3));
+    let mut image = Image::new(Dimensions::new(4, 4));
     scene.render(&mut image);
 
     assert_eq!(
         format!("{}", image),
         r#"....
-.xx.
-.xx.
-....
+..x.
+.xxx
+..x.
 "#
     );
 }
@@ -54,13 +54,14 @@ fn test_draw_sphere() {
 ......xxxxx.....
 .....xxxxxxx....
 ....xxxxxxxxx...
-....xxxxxxxxx...
-....xxxxxxxxx...
-....xxxxxxxxx...
+...xxxxxxxxxxx..
+...xxxxxxxxxxx..
+...xxxxxxxxxxx..
+...xxxxxxxxxxx..
+...xxxxxxxxxxx..
 ....xxxxxxxxx...
 .....xxxxxxx....
 ......xxxxx.....
-................
 "#
     );
 }
