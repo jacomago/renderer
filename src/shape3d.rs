@@ -1,4 +1,4 @@
-use std::vec;
+use std::{fmt::Debug, vec};
 
 use crate::{
     prelude::Coloring,
@@ -6,6 +6,7 @@ use crate::{
     vectors::{Ray, Vector3D},
 };
 
+#[derive(Debug, Clone)]
 pub struct Sphere {
     position: Vector3D<f32>,
     radius: f32,
@@ -22,10 +23,11 @@ impl Sphere {
     }
 }
 
-pub trait Shape3d: Colored<Vector3D<f32>> {
+pub trait RayIntersections {
     fn intersection(&self, ray: &Ray) -> Vec<Vector3D<f32>>;
 }
-impl Shape3d for Sphere {
+
+impl RayIntersections for Sphere {
     // (v- p)(v-p) = r**2
     // (ray_v - p)(ray_v - p) = r**2
     // (o + dt - p)(o+dt -p) = r**2
@@ -130,10 +132,7 @@ mod tests {
         let ray = Ray::new(Vector3D::default(), Vector3D::new(0.0, 0.0, 1.0));
         let intersections = sphere.intersection(&ray);
 
-        assert_eq!(
-            vec![ Vector3D::new(0.0, 0.0, 0.0)],
-            intersections
-        );
+        assert_eq!(vec![Vector3D::new(0.0, 0.0, 0.0)], intersections);
     }
     #[test]
     fn test_shift_y() {
@@ -141,10 +140,7 @@ mod tests {
         let ray = Ray::new(Vector3D::default(), Vector3D::new(0.0, 0.0, 1.0));
         let intersections = sphere.intersection(&ray);
 
-        assert_eq!(
-            vec![ Vector3D::new(0.0, 0.0, 0.0)],
-            intersections
-        );
+        assert_eq!(vec![Vector3D::new(0.0, 0.0, 0.0)], intersections);
     }
     #[test]
     fn test_shift_z() {
@@ -153,7 +149,7 @@ mod tests {
         let intersections = sphere.intersection(&ray);
 
         assert_eq!(
-            vec![ Vector3D::new(0.0, 0.0, 4.0), Vector3D::new(0.0, 0.0, 0.0)],
+            vec![Vector3D::new(0.0, 0.0, 4.0), Vector3D::new(0.0, 0.0, 0.0)],
             intersections
         );
     }

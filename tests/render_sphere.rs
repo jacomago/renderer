@@ -3,11 +3,11 @@ use renderer::prelude::*;
 #[test]
 fn test_draw_small_sphere() {
     let scene = Scene::new(
-        vec![Box::new(Sphere::new(
+        vec![Sphere::new(
             Vector3D::new(0.0, 0.0, 0.0),
             1.0,
             Coloring::Fill(Color::WHITE),
-        ))],
+        )],
         Camera::new(
             Vector3D::new(0.0, 0.0, -6.0),
             Vector3D::new(0.0, 1.0, 0.0),
@@ -34,11 +34,11 @@ fn test_draw_sphere() {
     let l = 2;
     let dim = Dimensions::new(6 * l, 4 * l);
     let scene = Scene::new(
-        vec![Box::new(Sphere::new(
+        vec![Sphere::new(
             Vector3D::new(0.0, 0.0, 0.0),
             3.2,
             Coloring::Fill(Color::WHITE),
-        ))],
+        )],
         Camera::new(
             Vector3D::new(0.0, 0.0, -20.0),
             Vector3D::new(0.0, 1.0, 0.0),
@@ -53,7 +53,7 @@ fn test_draw_sphere() {
     let mut circle_image = Image::new(dim);
     let circle = Circle::new(
         5.0,
-        Position2D::new(dim.w() as f32 / 2.0 -0.5, dim.h() as f32 / 2.0 - 0.5),
+        Position2D::new(dim.w() as f32 / 2.0 - 0.5, dim.h() as f32 / 2.0 - 0.5),
         Coloring::Fill(Color::WHITE),
     );
 

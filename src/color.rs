@@ -72,6 +72,7 @@ impl Color {
     }
 }
 
+#[derive(Debug, Clone)]
 pub struct Gradient {
     colors: (Color, Color),
 }
@@ -97,6 +98,7 @@ impl Gradient {
         }
     }
 }
+#[derive(Debug, Clone)]
 pub enum Coloring {
     Fill(Color),
     Gradient(Gradient),
