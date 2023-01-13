@@ -1,6 +1,6 @@
 use std::io::{self, Write};
 
-use crate::dimensions::Dimensions;
+use geometry::prelude::Dimensions;
 
 pub struct Ppm {
     dim: Dimensions<usize>,

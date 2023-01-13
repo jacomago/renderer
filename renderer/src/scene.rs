@@ -1,14 +1,14 @@
-use crate::{
-    camera::Camera, image::Image, intersections::closest_sphere_intersection, shape::Colored,
-    shape3d::Sphere,
-};
+use geometry::prelude::closest_sphere_intersection;
+use image_proc::prelude::Image;
+
+use crate::{camera::Camera, object::SceneObject};
 
 pub struct Scene {
-    objects: Vec<Sphere>,
+    objects: Vec<SceneObject>,
     camera: Camera,
 }
 impl Scene {
-    pub fn new(objects: Vec<Sphere>, camera: Camera) -> Self {
+    pub fn new(objects: Vec<SceneObject>, camera: Camera) -> Self {
         Self { objects, camera }
     }
 

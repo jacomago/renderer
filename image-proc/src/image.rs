@@ -1,6 +1,8 @@
 use std::fmt::Display;
 
-use crate::{color::Color, dimensions::Dimensions, prelude::Ppm, vectors::Position2D};
+use geometry::prelude::{Dimensions, Position2D};
+
+use crate::{color::Color, ppm::Ppm};
 
 #[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub struct Pixel {

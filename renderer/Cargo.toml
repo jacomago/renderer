@@ -1,0 +1,10 @@
+[package]
+name = "renderer"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+geometry = { version = "0.1.0", path = "../geometry" }
+image-proc = { version = "0.1.0", path = "../image-proc" }

@@ -1,8 +1,7 @@
 use std::{fmt::Debug, vec};
 
 use crate::{
-    prelude::Coloring,
-    shape::{Colored, Contains, HorizontalPercentage},
+    shape::{Contains, HorizontalPercentage},
     vectors::{Ray, Vector3D},
 };
 
@@ -10,16 +9,11 @@ use crate::{
 pub struct Sphere {
     position: Vector3D<f32>,
     radius: f32,
-    coloring: Coloring,
 }
 
 impl Sphere {
-    pub fn new(position: Vector3D<f32>, radius: f32, coloring: Coloring) -> Self {
-        Self {
-            position,
-            radius,
-            coloring,
-        }
+    pub fn new(position: Vector3D<f32>, radius: f32) -> Self {
+        Self { position, radius }
     }
 }
 
@@ -58,31 +52,24 @@ impl RayIntersections for Sphere {
     }
 }
 
-impl HorizontalPercentage<Vector3D<f32>> for Sphere {
-    fn horizontal_percentage(&self, position: &Vector3D<f32>) -> f32 {
-        (self.position.x() - self.radius - position.x() as f32).abs() / (2.0 * self.radius)
-    }
-}
-
 impl Contains<Vector3D<f32>> for Sphere {
     fn contains(&self, position: &Vector3D<f32>) -> bool {
         self.position.dot(position) < self.radius.powi(2)
     }
 }
 
-impl Colored<Vector3D<f32>> for Sphere {
-    fn coloring(&self) -> &Coloring {
-        &self.coloring
+impl HorizontalPercentage<Vector3D<f32>> for Sphere {
+    fn horizontal_percentage(&self, position: &Vector3D<f32>) -> f32 {
+        (self.position.x() - self.radius - position.x() as f32).abs() / (2.0 * self.radius)
     }
 }
-
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn test_intersection_origin() {
-        let sphere = Sphere::new(Vector3D::default(), 1.0, Coloring::default());
+        let sphere = Sphere::new(Vector3D::default(), 1.0);
         let ray = Ray::new(Vector3D::default(), Vector3D::new(0.0, 0.0, 1.0));
         let intersections = sphere.intersection(&ray);
 
@@ -93,7 +80,7 @@ mod tests {
     }
     #[test]
     fn test_intersection_one() {
-        let sphere = Sphere::new(Vector3D::new(1.0, 0.0, 0.0), 1.0, Coloring::default());
+        let sphere = Sphere::new(Vector3D::new(1.0, 0.0, 0.0), 1.0);
         let ray = Ray::new(Vector3D::default(), Vector3D::new(0.0, 0.0, 1.0));
         let intersections = sphere.intersection(&ray);
 
@@ -101,7 +88,7 @@ mod tests {
     }
     #[test]
     fn test_intersection_none() {
-        let sphere = Sphere::new(Vector3D::new(1.5, 0.0, 0.0), 1.0, Coloring::default());
+        let sphere = Sphere::new(Vector3D::new(1.5, 0.0, 0.0), 1.0);
         let ray = Ray::new(Vector3D::default(), Vector3D::new(0.0, 0.0, 1.0));
         let intersections = sphere.intersection(&ray);
 
@@ -109,7 +96,7 @@ mod tests {
     }
     #[test]
     fn test_small_radius() {
-        let sphere = Sphere::new(Vector3D::new(1.0, 0.0, 0.0), 0.5, Coloring::default());
+        let sphere = Sphere::new(Vector3D::new(1.0, 0.0, 0.0), 0.5);
         let ray = Ray::new(Vector3D::default(), Vector3D::new(1.0, 0.0, 1.0));
         let intersections = sphere.intersection(&ray);
 
@@ -117,7 +104,7 @@ mod tests {
     }
     #[test]
     fn test_large_radius() {
-        let sphere = Sphere::new(Vector3D::new(0.0, 0.0, 0.0), 2.0, Coloring::default());
+        let sphere = Sphere::new(Vector3D::new(0.0, 0.0, 0.0), 2.0);
         let ray = Ray::new(Vector3D::default(), Vector3D::new(0.0, 0.0, 1.0));
         let intersections = sphere.intersection(&ray);
 
@@ -128,7 +115,7 @@ mod tests {
     }
     #[test]
     fn test_shift_x() {
-        let sphere = Sphere::new(Vector3D::new(2.0, 0.0, 0.0), 2.0, Coloring::default());
+        let sphere = Sphere::new(Vector3D::new(2.0, 0.0, 0.0), 2.0);
         let ray = Ray::new(Vector3D::default(), Vector3D::new(0.0, 0.0, 1.0));
         let intersections = sphere.intersection(&ray);
 
@@ -136,7 +123,7 @@ mod tests {
     }
     #[test]
     fn test_shift_y() {
-        let sphere = Sphere::new(Vector3D::new(0.0, 2.0, 0.0), 2.0, Coloring::default());
+        let sphere = Sphere::new(Vector3D::new(0.0, 2.0, 0.0), 2.0);
         let ray = Ray::new(Vector3D::default(), Vector3D::new(0.0, 0.0, 1.0));
         let intersections = sphere.intersection(&ray);
 
@@ -144,7 +131,7 @@ mod tests {
     }
     #[test]
     fn test_shift_z() {
-        let sphere = Sphere::new(Vector3D::new(0.0, 0.0, 2.0), 2.0, Coloring::default());
+        let sphere = Sphere::new(Vector3D::new(0.0, 0.0, 2.0), 2.0);
         let ray = Ray::new(Vector3D::default(), Vector3D::new(0.0, 0.0, 1.0));
         let intersections = sphere.intersection(&ray);
 

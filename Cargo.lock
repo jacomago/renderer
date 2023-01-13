@@ -3,5 +3,20 @@
 version = 3
 
 [[package]]
+name = "geometry"
+version = "0.1.0"
+
+[[package]]
+name = "image-proc"
+version = "0.1.0"
+dependencies = [
+ "geometry",
+]
+
+[[package]]
 name = "renderer"
 version = "0.1.0"
+dependencies = [
+ "geometry",
+ "image-proc",
+]

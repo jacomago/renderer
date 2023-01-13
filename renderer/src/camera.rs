@@ -1,7 +1,4 @@
-use crate::{
-    dimensions::Dimensions,
-    vectors::{Position2D, Ray, Vector3D},
-};
+use geometry::prelude::{Dimensions, Position2D, Ray, Vector3D};
 
 pub struct Direction {
     up: Vector3D<f32>,
@@ -86,7 +83,6 @@ impl Camera {
 
 #[cfg(test)]
 mod tests {
-    use crate::vectors::Vector3D;
 
     use super::*;
 
