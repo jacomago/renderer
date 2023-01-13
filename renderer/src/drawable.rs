@@ -1,5 +1,5 @@
 use geometry::prelude::{Circle, Contains, HorizontalPercentage, Position2D};
-use image_proc::prelude::{Coloring, Image};
+use image_lib::prelude::{Coloring, Image};
 
 use crate::colored::Colored;
 
