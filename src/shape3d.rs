@@ -105,4 +105,56 @@ mod tests {
 
         assert_eq!(Vec::<Vector3D<f32>>::new(), intersections);
     }
+    #[test]
+    fn test_small_radius() {
+        let sphere = Sphere::new(Vector3D::new(1.0, 0.0, 0.0), 0.5, Coloring::default());
+        let ray = Ray::new(Vector3D::default(), Vector3D::new(1.0, 0.0, 1.0));
+        let intersections = sphere.intersection(&ray);
+
+        assert_eq!(Vec::<Vector3D<f32>>::new(), intersections);
+    }
+    #[test]
+    fn test_large_radius() {
+        let sphere = Sphere::new(Vector3D::new(0.0, 0.0, 0.0), 2.0, Coloring::default());
+        let ray = Ray::new(Vector3D::default(), Vector3D::new(0.0, 0.0, 1.0));
+        let intersections = sphere.intersection(&ray);
+
+        assert_eq!(
+            vec![Vector3D::new(0.0, 0.0, 2.0), Vector3D::new(0.0, 0.0, -2.0)],
+            intersections
+        );
+    }
+    #[test]
+    fn test_shift_x() {
+        let sphere = Sphere::new(Vector3D::new(2.0, 0.0, 0.0), 2.0, Coloring::default());
+        let ray = Ray::new(Vector3D::default(), Vector3D::new(0.0, 0.0, 1.0));
+        let intersections = sphere.intersection(&ray);
+
+        assert_eq!(
+            vec![ Vector3D::new(0.0, 0.0, 0.0)],
+            intersections
+        );
+    }
+    #[test]
+    fn test_shift_y() {
+        let sphere = Sphere::new(Vector3D::new(0.0, 2.0, 0.0), 2.0, Coloring::default());
+        let ray = Ray::new(Vector3D::default(), Vector3D::new(0.0, 0.0, 1.0));
+        let intersections = sphere.intersection(&ray);
+
+        assert_eq!(
+            vec![ Vector3D::new(0.0, 0.0, 0.0)],
+            intersections
+        );
+    }
+    #[test]
+    fn test_shift_z() {
+        let sphere = Sphere::new(Vector3D::new(0.0, 0.0, 2.0), 2.0, Coloring::default());
+        let ray = Ray::new(Vector3D::default(), Vector3D::new(0.0, 0.0, 1.0));
+        let intersections = sphere.intersection(&ray);
+
+        assert_eq!(
+            vec![ Vector3D::new(0.0, 0.0, 4.0), Vector3D::new(0.0, 0.0, 0.0)],
+            intersections
+        );
+    }
 }
