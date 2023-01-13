@@ -13,7 +13,7 @@ fn main() -> io::Result<()> {
                 Coloring::Fill(Color::RED),
             ),
             Sphere::new(
-                Vector3D::new(00.0, 0.0, 10.0),
+                Vector3D::new(10.0, 0.0, 10.0),
                 20.0,
                 Coloring::Fill(Color::YELLOW),
             ),
