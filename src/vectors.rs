@@ -30,7 +30,7 @@ impl<T> Position2D<T> {
     }
 }
 
-#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Hash)]
 pub struct Vector3D<T> {
     x: T,
     y: T,

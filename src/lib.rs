@@ -2,6 +2,7 @@ mod camera;
 mod color;
 mod dimensions;
 mod image;
+mod intersections;
 mod ppm;
 mod scene;
 mod shape;
