@@ -3,6 +3,10 @@
 version = 3
 
 [[package]]
+name = "colors"
+version = "0.1.0"
+
+[[package]]
 name = "geometry"
 version = "0.1.0"
 
@@ -10,6 +14,7 @@ version = "0.1.0"
 name = "image_lib"
 version = "0.1.0"
 dependencies = [
+ "colors",
  "geometry",
 ]
 
@@ -17,6 +22,7 @@ dependencies = [
 name = "renderer"
 version = "0.1.0"
 dependencies = [
+ "colors",
  "geometry",
  "image_lib",
 ]

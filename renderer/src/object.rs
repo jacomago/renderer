@@ -1,16 +1,16 @@
+use colors::prelude::Coloring;
 use geometry::prelude::{Contains, HorizontalPercentage, RayIntersections, Sphere, Vector3D};
-use image_lib::prelude::Coloring;
 
 use crate::colored::Colored;
 
 #[derive(Clone, Copy)]
 pub struct SceneObject {
     sphere: Sphere,
-    coloring: Coloring,
+    coloring: Coloring<f32>,
 }
 
 impl SceneObject {
-    pub fn new(sphere: Sphere, coloring: Coloring) -> Self {
+    pub fn new(sphere: Sphere, coloring: Coloring<f32>) -> Self {
         Self { sphere, coloring }
     }
 }
@@ -32,7 +32,7 @@ impl HorizontalPercentage<Vector3D<f32>> for SceneObject {
     }
 }
 impl Colored<Vector3D<f32>> for SceneObject {
-    fn coloring(&self) -> &Coloring {
+    fn coloring(&self) -> &Coloring<f32> {
         &self.coloring
     }
 }

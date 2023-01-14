@@ -6,5 +6,6 @@ pub use crate::drawable::Drawable;
 pub use crate::object::SceneObject;
 pub use crate::scene::Scene;
 
+pub use colors::prelude::*;
 pub use geometry::prelude::*;
 pub use image_lib::prelude::*;
