@@ -1,6 +1,5 @@
 use std::ops::{Add, Mul, Sub};
 
-
 pub struct Position2D<T> {
     pub x: T,
     pub y: T,

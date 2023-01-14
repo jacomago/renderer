@@ -37,7 +37,6 @@ impl Scene {
         if let Some((s, intersection)) =
             closest_intersection(&self.objects, &ray, self.camera.position())
         {
-            
             return s.color(&intersection);
         }
         None
