@@ -11,7 +11,7 @@ fn distance_squared_cmp(i: &Vector3D<f32>, j: &Vector3D<f32>, origin: Vector3D<f
 }
 
 pub fn closest_intersection<T: RayIntersections + Copy>(
-    objects: &Vec<T>,
+    objects: &[T],
     ray: &Ray,
     origin: Vector3D<f32>,
 ) -> Option<(T, Vector3D<f32>)> {
