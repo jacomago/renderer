@@ -19,9 +19,15 @@ impl Drawable for ColoredCircle {
     }
 }
 
-struct ColoredCircle {
+pub struct ColoredCircle {
     circle: Circle,
     coloring: Coloring,
+}
+
+impl ColoredCircle {
+    pub fn new(circle: Circle, coloring: Coloring) -> Self {
+        Self { circle, coloring }
+    }
 }
 
 impl Contains<Position2D<usize>> for ColoredCircle {
@@ -31,11 +37,11 @@ impl Contains<Position2D<usize>> for ColoredCircle {
 }
 impl HorizontalPercentage<Position2D<usize>> for ColoredCircle {
     fn horizontal_percentage(&self, position: &Position2D<usize>) -> f32 {
-        self.horizontal_percentage(position)
+        self.circle.horizontal_percentage(position)
     }
 }
 impl Colored<Position2D<usize>> for ColoredCircle {
     fn coloring(&self) -> &Coloring {
-        todo!()
+        &self.coloring
     }
 }

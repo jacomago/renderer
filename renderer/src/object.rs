@@ -9,6 +9,12 @@ pub struct SceneObject {
     coloring: Coloring,
 }
 
+impl SceneObject {
+    pub fn new(sphere: Sphere, coloring: Coloring) -> Self {
+        Self { sphere, coloring }
+    }
+}
+
 impl RayIntersections for SceneObject {
     fn intersection(&self, ray: &geometry::prelude::Ray) -> Vec<geometry::prelude::Vector3D<f32>> {
         self.sphere.intersection(ray)
@@ -27,6 +33,6 @@ impl HorizontalPercentage<Vector3D<f32>> for SceneObject {
 }
 impl Colored<Vector3D<f32>> for SceneObject {
     fn coloring(&self) -> &Coloring {
-        self.coloring()
+        &self.coloring
     }
 }
