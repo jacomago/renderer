@@ -1,5 +1,6 @@
+use colors::prelude::Coloring;
 use geometry::prelude::{Circle, Contains, HorizontalPercentage, Position2D};
-use image_lib::prelude::{Coloring, Image};
+use image_lib::prelude::Image;
 
 use crate::colored::Colored;
 
@@ -21,11 +22,11 @@ impl Drawable for ColoredCircle {
 
 pub struct ColoredCircle {
     circle: Circle,
-    coloring: Coloring,
+    coloring: Coloring<f32>,
 }
 
 impl ColoredCircle {
-    pub fn new(circle: Circle, coloring: Coloring) -> Self {
+    pub fn new(circle: Circle, coloring: Coloring<f32>) -> Self {
         Self { circle, coloring }
     }
 }
@@ -41,7 +42,7 @@ impl HorizontalPercentage<Position2D<usize>> for ColoredCircle {
     }
 }
 impl Colored<Position2D<usize>> for ColoredCircle {
-    fn coloring(&self) -> &Coloring {
+    fn coloring(&self) -> &Coloring<f32> {
         &self.coloring
     }
 }

@@ -1,4 +1,3 @@
-mod color;
 mod image;
 mod ppm;
 

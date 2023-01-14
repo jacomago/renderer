@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 geometry = { version = "0.1.0", path = "../geometry" }
 image_lib = { version = "0.1.0", path = "../image_lib" }
+colors = { version = "0.1.0", path = "../colors" }

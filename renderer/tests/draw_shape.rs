@@ -1,3 +1,4 @@
+use colors::prelude::*;
 use renderer::prelude::*;
 
 #[test]
