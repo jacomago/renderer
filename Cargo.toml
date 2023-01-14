@@ -1,2 +1,2 @@
 [workspace]
-members = ["geometry", "renderer", "image-proc"]
+members = ["geometry", "renderer", "image_lib"]

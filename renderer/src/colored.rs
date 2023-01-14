@@ -1,5 +1,5 @@
 use geometry::prelude::{Contains, HorizontalPercentage};
-use image_proc::prelude::{Color, Coloring};
+use image_lib::prelude::{Color, Coloring};
 
 pub trait Colored<T>: Contains<T> + HorizontalPercentage<T> {
     fn coloring(&self) -> &Coloring;

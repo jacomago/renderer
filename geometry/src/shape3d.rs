@@ -5,7 +5,7 @@ use crate::{
     vectors::{Ray, Vector3D},
 };
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Copy)]
 pub struct Sphere {
     position: Vector3D<f32>,
     radius: f32,

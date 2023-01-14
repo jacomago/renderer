@@ -1,7 +1,7 @@
 mod camera;
 mod colored;
 mod drawable;
-mod scene;
 mod object;
+mod scene;
 
 pub mod prelude;
