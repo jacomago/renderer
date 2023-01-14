@@ -33,30 +33,40 @@ impl Scene {
         scene_object: &SceneObject,
         position: &Vector3D<f32>,
     ) -> Option<Color<f32>> {
-        let colors = self.lights.iter().map(|l| {
-            let ray = l.ray(position);
-            if closest_intersection(
-                &self
-                    .objects
-                    .iter()
-                    .filter(|o| *o != scene_object)
-                    .copied()
-                    .collect::<Vec<SceneObject>>(),
-                &ray,
-                Vector3D::default(),
-            )
-            .is_some()
-            {
-                return None;
-            }
-            let light_color = l.surface_color(
-                scene_object,
-                position,
-                l.angle(scene_object.shape(), position),
-            );
-            Some(light_color)
-        });
+        let colors = self
+            .lights
+            .iter()
+            .map(|l| self.calc_light(l, position, scene_object));
         colors.last().unwrap_or_default()
+    }
+
+    fn calc_light(
+        &self,
+        l: &Light,
+        position: &Vector3D<f32>,
+        scene_object: &SceneObject,
+    ) -> Option<Color<f32>> {
+        let ray = l.ray(position);
+        if closest_intersection(
+            &self
+                .objects
+                .iter()
+                .filter(|o| *o != scene_object)
+                .copied()
+                .collect::<Vec<SceneObject>>(),
+            &ray,
+            Vector3D::default(),
+        )
+        .is_some()
+        {
+            return None;
+        }
+        let light_color = l.surface_color(
+            scene_object,
+            position,
+            l.angle(scene_object.shape(), position),
+        );
+        Some(light_color)
     }
 
     fn ray_cast(
