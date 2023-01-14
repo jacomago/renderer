@@ -1,5 +1,6 @@
 use std::io::{self};
 
+use colors::prelude::{Color, Coloring};
 use renderer::prelude::*;
 
 fn main() -> io::Result<()> {
