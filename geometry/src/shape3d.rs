@@ -60,7 +60,7 @@ impl Contains<Vector3D<f32>> for Sphere {
 
 impl HorizontalPercentage<Vector3D<f32>> for Sphere {
     fn horizontal_percentage(&self, position: &Vector3D<f32>) -> f32 {
-        (self.position.x() - self.radius - position.x() as f32).abs() / (2.0 * self.radius)
+        (self.position.x() - self.radius - position.x()).abs() / (2.0 * self.radius)
     }
 }
 #[cfg(test)]
