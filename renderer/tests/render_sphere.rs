@@ -7,6 +7,7 @@ fn test_draw_small_sphere() {
             Sphere::new(Vector3D::new(0.0, 0.0, 0.0), 1.0),
             Coloring::Fill(Color::WHITE),
         )],
+        vec![],
         Camera::new(
             Vector3D::new(0.0, 0.0, -6.0),
             Vector3D::new(0.0, 1.0, 0.0),
@@ -37,6 +38,7 @@ fn test_draw_sphere() {
             Sphere::new(Vector3D::new(0.0, 0.0, 0.0), 3.2),
             Coloring::Fill(Color::WHITE),
         )],
+        vec![],
         Camera::new(
             Vector3D::new(0.0, 0.0, -20.0),
             Vector3D::new(0.0, 1.0, 0.0),

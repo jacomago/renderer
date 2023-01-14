@@ -17,6 +17,7 @@ fn main() -> io::Result<()> {
                 Coloring::Fill(Color::YELLOW),
             ),
         ],
+        vec![],
         Camera::new(
             Vector3D::new(0.0, 0.0, -20.0),
             Vector3D::new(0.0, 1.0, 0.0),

@@ -1,9 +1,6 @@
 use std::cmp::Ordering;
 
-use crate::{
-    shape3d::RayIntersections,
-    vectors::{Ray, Vector3D},
-};
+use crate::{prelude::Ray, ray_intersections::RayIntersections, vectors::Vector3D};
 
 fn distance_squared_cmp(i: &Vector3D<f32>, j: &Vector3D<f32>, origin: Vector3D<f32>) -> Ordering {
     i.distance_squared(origin)
