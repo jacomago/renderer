@@ -52,6 +52,12 @@ impl<T: Mul<Output = T> + Add<Output = T> + Copy + Sub<Output = T>> Vector3D<T> 
     }
 }
 
+impl Vector3D<f32> {
+    pub fn normalize(self) -> Self {
+        self * (1.0 / self.distance_squared(self).sqrt())
+    }
+}
+
 impl<T: Sub<Output = T>> Sub for Vector3D<T> {
     type Output = Vector3D<T>;
 

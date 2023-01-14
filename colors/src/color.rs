@@ -1,3 +1,5 @@
+use std::ops::Mul;
+
 use crate::monotone::Monotone;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
@@ -65,6 +67,32 @@ impl Color<f32> {
         green: 0.0,
         alpha: 1.0,
     };
+}
+
+impl<T: Mul<Output = T>> Mul for Color<T> {
+    type Output = Self;
+
+    fn mul(self, rhs: Self) -> Self::Output {
+        Self {
+            red: self.red * rhs.red,
+            blue: self.blue * rhs.blue,
+            green: self.green * rhs.green,
+            alpha: self.alpha * rhs.alpha,
+        }
+    }
+}
+
+impl<T: Mul<Output = T> + Copy> Mul<T> for Color<T> {
+    type Output = Self;
+
+    fn mul(self, rhs: T) -> Self::Output {
+        Self {
+            red: self.red * rhs,
+            blue: self.blue * rhs,
+            green: self.green * rhs,
+            alpha: self.alpha * rhs,
+        }
+    }
 }
 
 fn float_to_u8(f: f32) -> u8 {

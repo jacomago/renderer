@@ -1,8 +1,8 @@
 use colors::prelude::Color;
-use geometry::prelude::closest_intersection;
+use geometry::prelude::{closest_intersection, Vector3D};
 use image_lib::prelude::Image;
 
-use crate::{camera::Camera, colored::Colored, lighting::Light, object::SceneObject};
+use crate::{camera::Camera, lighting::Light, object::SceneObject};
 
 pub struct Scene {
     objects: Vec<SceneObject>,
@@ -28,6 +28,37 @@ impl Scene {
         });
     }
 
+    fn calc_lighting(
+        &self,
+        scene_object: &SceneObject,
+        position: &Vector3D<f32>,
+    ) -> Option<Color<f32>> {
+        let colors = self.lights.iter().map(|l| {
+            let ray = l.ray(position);
+            if closest_intersection(
+                &self
+                    .objects
+                    .iter()
+                    .filter(|o| *o != scene_object)
+                    .copied()
+                    .collect::<Vec<SceneObject>>(),
+                &ray,
+                Vector3D::default(),
+            )
+            .is_some()
+            {
+                return None;
+            }
+            let light_color = l.surface_color(
+                scene_object,
+                position,
+                l.angle(scene_object.shape(), position),
+            );
+            Some(light_color)
+        });
+        colors.last().unwrap_or_default()
+    }
+
     fn ray_cast(
         &self,
         p: &geometry::prelude::Position2D<usize>,
@@ -37,7 +68,7 @@ impl Scene {
         if let Some((s, intersection)) =
             closest_intersection(&self.objects, &ray, self.camera.position())
         {
-            return s.color(&intersection);
+            return self.calc_lighting(&s, &intersection);
         }
         None
     }

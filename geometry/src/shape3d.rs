@@ -64,8 +64,8 @@ impl HorizontalPercentage<Vector3D<f32>> for Sphere {
 }
 
 impl Normal<f32> for Sphere {
-    fn normal(&self, p: Vector3D<f32>) -> Vector3D<f32> {
-        p - self.position
+    fn normal(&self, p: &Vector3D<f32>) -> Vector3D<f32> {
+        *p - self.position
     }
 }
 
