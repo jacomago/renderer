@@ -53,18 +53,28 @@ impl Color<f32> {
         green: 1.0,
         alpha: 1.0,
     };
-
     pub const RED: Self = Self {
         red: 1.0,
         blue: 0.0,
         green: 0.0,
         alpha: 1.0,
     };
-
-    pub const YELLOW: Self = Self {
-        red: 1.0,
+    pub const GREEN: Self = Self {
+        red: 0.0,
+        blue: 0.0,
+        green: 1.0,
+        alpha: 1.0,
+    };
+    pub const BLUE: Self = Self {
+        red: 0.0,
         blue: 1.0,
         green: 0.0,
+        alpha: 1.0,
+    };
+    pub const YELLOW: Self = Self {
+        red: 1.0,
+        blue: 0.0,
+        green: 1.0,
         alpha: 1.0,
     };
 }

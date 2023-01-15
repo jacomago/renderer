@@ -7,6 +7,16 @@ name = "colors"
 version = "0.1.0"
 
 [[package]]
+name = "examples"
+version = "0.1.0"
+dependencies = [
+ "colors",
+ "geometry",
+ "image_lib",
+ "renderer",
+]
+
+[[package]]
 name = "geometry"
 version = "0.1.0"
 

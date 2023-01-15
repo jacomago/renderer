@@ -16,10 +16,6 @@ fn main() -> io::Result<()> {
                 Sphere::new(Vector3D::new(10.0, 0.0, 10.0), 20.0),
                 Coloring::Fill(Color::YELLOW),
             ),
-            SceneObject::new(
-                Sphere::new(Vector3D::new(10.0, 5.0, 0.0), 5.0),
-                Coloring::Gradient(Gradient::new((Color::BLUE, Color::BLACK))),
-            ),
         ],
         vec![Light::new(
             Vector3D::new(10.0, 10.0, -10.0),
