@@ -2,6 +2,7 @@ use std::ops::Mul;
 
 use crate::monotone::Monotone;
 
+/// Color represents a color with red, green, blue and alpha values
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub struct Color<T> {
     red: T,
@@ -11,6 +12,7 @@ pub struct Color<T> {
 }
 
 impl<T> Color<T> {
+    /// A constructor for Color
     pub fn new(red: T, blue: T, green: T, alpha: T) -> Self {
         Self {
             red,
@@ -20,60 +22,73 @@ impl<T> Color<T> {
         }
     }
 
+    /// Red part of color
     pub fn red(&self) -> &T {
         &self.red
     }
 
+    /// Blue part of color
     pub fn blue(&self) -> &T {
         &self.blue
     }
 
+    /// Green part of color
     pub fn green(&self) -> &T {
         &self.green
     }
 
+    /// Alpha part of color
     pub fn alpha(&self) -> &T {
         &self.alpha
     }
 }
 
 impl Color<f32> {
+    /// Convert color to black or white
     pub fn monotone(&self) -> Monotone {
         if self.red + self.green + self.blue > 1.5 {
             return Monotone::Black;
         }
         Monotone::White
     }
+    /// Constant black color
     pub const BLACK: Self = Self {
         red: 0.0,
         blue: 0.0,
         green: 0.0,
         alpha: 1.0,
     };
+    /// Constant white color
     pub const WHITE: Self = Self {
         red: 1.0,
         blue: 1.0,
         green: 1.0,
         alpha: 1.0,
     };
+
+    /// Constant red color
     pub const RED: Self = Self {
         red: 1.0,
         blue: 0.0,
         green: 0.0,
         alpha: 1.0,
     };
+    /// Constant green color
     pub const GREEN: Self = Self {
         red: 0.0,
         blue: 0.0,
         green: 1.0,
         alpha: 1.0,
     };
+
+    /// Constant blue color
     pub const BLUE: Self = Self {
         red: 0.0,
         blue: 1.0,
         green: 0.0,
         alpha: 1.0,
     };
+    /// Constant yellow color
     pub const YELLOW: Self = Self {
         red: 1.0,
         blue: 0.0,
@@ -124,6 +139,8 @@ impl From<Color<f32>> for Color<u8> {
 }
 
 impl Color<u8> {
+    /// Convert color to vector of bytes
+    /// Useful for writing into an image format
     pub fn rgb_bytes(&self) -> Vec<u8> {
         vec![self.red, self.green, self.blue]
     }
