@@ -15,8 +15,8 @@ impl Light {
             intensity,
         }
     }
-    pub fn color(&self) -> &Color<f32> {
-        &self.color
+    pub fn color(&self) -> Color<f32> {
+        self.color * self.intensity
     }
     pub fn position(&self) -> &Vector3D<f32> {
         &self.position

@@ -7,10 +7,10 @@ use crate::{
 };
 
 fn angle(ray: &Ray, shape: &dyn Normal<f32>, position: &Vector3D<f32>) -> f32 {
-    let r = ray.direction;
+    let r = ray.direction * -1.0;
     let normalized_r = r.normalize();
     let shape_normal = &shape.normal(position);
-    normalized_r.dot(shape_normal).abs()
+    shape_normal.dot(&normalized_r).abs()
 }
 
 fn ray_intersect_other_object(
@@ -55,7 +55,7 @@ fn surface_color(
     surface_coeff: f32,
 ) -> Color<f32> {
     let shape_color = shape.color(position).unwrap_or_default();
-    *light.color() * shape_color * surface_coeff
+    light.color() * shape_color * surface_coeff
 }
 
 #[cfg(test)]

@@ -63,7 +63,19 @@ mod tests {
         let res = closest_intersection(&objects, &ray, origin).unwrap();
 
         assert_eq!(&objects[0], res.0);
-        assert_eq!(Vector3D::new(0.0, 0.0, 0.0), res.1);
+        assert_eq!(Vector3D::new(0.0, 0.0, 2.0), res.1);
+    }
+
+    #[test]
+    fn test_none_behind_origin() {
+        let sphere = Sphere::new(Vector3D::new(0.0, 0.0, 1.0), 1.0);
+        let objects = vec![sphere];
+        let origin = Vector3D::default();
+        let ray = Ray::new(origin, Vector3D::new(0.0, 0.0, -1.0));
+
+        let res = closest_intersection(&objects, &ray, origin);
+
+        assert_eq!(None, res);
     }
 
     #[test]
@@ -85,7 +97,7 @@ mod tests {
         let ray = Ray::new(origin, Vector3D::new(0.0, 0.0, 1.0));
 
         assert_eq!(
-            Some((&objects[0], Vector3D::new(0.0, 0.0, 0.0))),
+            Some((&objects[1], Vector3D::new(0.0, 0.0, 1.0))),
             closest_intersection(&objects, &ray, origin)
         );
     }
