@@ -9,7 +9,8 @@ use crate::{
 fn angle(ray: &Ray, shape: &dyn Normal<f32>, position: &Vector3D<f32>) -> f32 {
     let r = ray.direction;
     let normalized_r = r.normalize();
-    normalized_r.dot(&shape.normal(position))
+    let shape_normal = &shape.normal(position);
+    normalized_r.dot(shape_normal).abs()
 }
 
 fn ray_intersect_other_object(
@@ -42,12 +43,8 @@ pub fn light_bounce_color(
     if ray_intersect_other_object(&ray, objects, scene_object) {
         return None;
     }
-    let light_color = surface_color(
-        light,
-        scene_object,
-        position,
-        angle(&ray, scene_object.shape(), position),
-    );
+    let coeff = angle(&ray, scene_object.shape(), position);
+    let light_color = surface_color(light, scene_object, position, coeff);
     Some(light_color)
 }
 

@@ -33,11 +33,11 @@ impl Scene {
         scene_object: &SceneObject,
         position: &Vector3D<f32>,
     ) -> Option<Color<f32>> {
-        let colors = self
-            .lights
+        self.lights
             .iter()
-            .map(|l| light_bounce_color(&self.objects, l, position, scene_object));
-        colors.last().unwrap_or_default()
+            .map(|l| light_bounce_color(&self.objects, l, position, scene_object))
+            .last()
+            .unwrap_or_default()
     }
 
     fn ray_cast(
