@@ -7,7 +7,11 @@ fn test_draw_small_sphere() {
             Sphere::new(Vector3D::new(0.0, 0.0, 0.0), 1.0),
             Coloring::Fill(Color::WHITE),
         )],
-        vec![],
+        vec![Light::new(
+            Vector3D::new(0.0, 0.0, -2.0),
+            Color::WHITE,
+            Color::WHITE,
+        )],
         Camera::new(
             Vector3D::new(0.0, 0.0, -6.0),
             Vector3D::new(0.0, 1.0, 0.0),
