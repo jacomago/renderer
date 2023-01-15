@@ -1,3 +1,4 @@
+#![deny(missing_docs)]
 mod camera;
 mod colored;
 mod drawable;

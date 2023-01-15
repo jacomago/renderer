@@ -1,4 +1,4 @@
-#![warn(clippy::pedantic)]
+#![deny(missing_docs)]
 
 mod color;
 mod coloring;
