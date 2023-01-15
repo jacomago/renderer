@@ -21,6 +21,12 @@ impl<T: Copy> Vector3D<T> {
     pub fn x(&self) -> T {
         self.x
     }
+    pub fn y(&self) -> T {
+        self.y
+    }
+    pub fn z(&self) -> T {
+        self.z
+    }
 }
 impl<T: Add<Output = T>> Add for Vector3D<T> {
     type Output = Vector3D<T>;
@@ -54,7 +60,7 @@ impl<T: Mul<Output = T> + Add<Output = T> + Copy + Sub<Output = T>> Vector3D<T> 
 
 impl Vector3D<f32> {
     pub fn normalize(self) -> Self {
-        self * (1.0 / self.distance_squared(self).sqrt())
+        self * (1.0 / self.length_squared().sqrt())
     }
 }
 

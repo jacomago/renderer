@@ -13,7 +13,17 @@ pub fn instersections<'a, T: RayIntersections>(
 ) -> Vec<(&'a T, Vec<Vector3D<f32>>)> {
     objects
         .iter()
-        .map(|object| (object, object.intersection(ray)))
+        .map(|object| {
+            (
+                object,
+                object
+                    .intersection(ray)
+                    .iter()
+                    .filter(|v| ray.t(**v) > 0.0) // filter out those not beyond origin
+                    .copied()
+                    .collect::<Vec<Vector3D<f32>>>(),
+            )
+        })
         .filter(|(_, i)| !i.is_empty())
         .collect()
 }
