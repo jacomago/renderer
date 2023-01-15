@@ -7,15 +7,24 @@ fn distance_squared_cmp(i: &Vector3D<f32>, j: &Vector3D<f32>, origin: Vector3D<f
         .total_cmp(&j.distance_squared(origin))
 }
 
-pub fn closest_intersection<T: RayIntersections + Copy>(
-    objects: &[T],
+pub fn instersections<'a, T: RayIntersections>(
+    objects: &'a [T],
     ray: &Ray,
-    origin: Vector3D<f32>,
-) -> Option<(T, Vector3D<f32>)> {
+) -> Vec<(&'a T, Vec<Vector3D<f32>>)> {
     objects
         .iter()
         .map(|object| (object, object.intersection(ray)))
         .filter(|(_, i)| !i.is_empty())
+        .collect()
+}
+
+pub fn closest_intersection<'a, T: RayIntersections>(
+    objects: &'a [T],
+    ray: &Ray,
+    origin: Vector3D<f32>,
+) -> Option<(&'a T, Vector3D<f32>)> {
+    instersections(objects, ray)
+        .iter()
         .map(|(o, i)| {
             (
                 *o,
@@ -43,7 +52,7 @@ mod tests {
 
         let res = closest_intersection(&objects, &ray, origin).unwrap();
 
-        assert_eq!(objects[0], res.0);
+        assert_eq!(&objects[0], res.0);
         assert_eq!(Vector3D::new(0.0, 0.0, 0.0), res.1);
     }
 
@@ -66,7 +75,7 @@ mod tests {
         let ray = Ray::new(origin, Vector3D::new(0.0, 0.0, 1.0));
 
         assert_eq!(
-            Some((objects[0], Vector3D::new(0.0, 0.0, 0.0))),
+            Some((&objects[0], Vector3D::new(0.0, 0.0, 0.0))),
             closest_intersection(&objects, &ray, origin)
         );
     }

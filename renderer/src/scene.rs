@@ -46,6 +46,23 @@ impl Scene {
         position: &Vector3D<f32>,
         scene_object: &SceneObject,
     ) -> Option<Color<f32>> {
+        if self.light_ray_intersect_other_object(l, position, scene_object) {
+            return None;
+        }
+        let light_color = l.surface_color(
+            scene_object,
+            position,
+            l.angle(scene_object.shape(), position),
+        );
+        Some(light_color)
+    }
+
+    fn light_ray_intersect_other_object(
+        &self,
+        l: &Light,
+        position: &Vector3D<f32>,
+        scene_object: &SceneObject,
+    ) -> bool {
         let ray = l.ray(position);
         if closest_intersection(
             &self
@@ -59,14 +76,9 @@ impl Scene {
         )
         .is_some()
         {
-            return None;
+            return true;
         }
-        let light_color = l.surface_color(
-            scene_object,
-            position,
-            l.angle(scene_object.shape(), position),
-        );
-        Some(light_color)
+        false
     }
 
     fn ray_cast(
