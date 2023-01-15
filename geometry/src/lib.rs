@@ -1,3 +1,5 @@
+#![warn(clippy::pedantic)]
+
 mod dimensions;
 mod intersections;
 mod normal;

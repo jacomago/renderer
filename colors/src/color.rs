@@ -23,12 +23,15 @@ impl<T> Color<T> {
     pub fn red(&self) -> &T {
         &self.red
     }
+
     pub fn blue(&self) -> &T {
-        &self.red
+        &self.blue
     }
+
     pub fn green(&self) -> &T {
-        &self.red
+        &self.green
     }
+
     pub fn alpha(&self) -> &T {
         &self.alpha
     }

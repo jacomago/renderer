@@ -77,11 +77,11 @@ impl Display for Image {
 
         self.pixels.iter().for_each(|v_p| {
             v_p.iter().for_each(|p| {
-                output.push_str(&format!("{}", p));
+                output.push_str(&format!("{p}"));
             });
             output.push('\n');
         });
-        write!(f, "{}", output)
+        write!(f, "{output}")
     }
 }
 
