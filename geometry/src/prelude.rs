@@ -1,5 +1,6 @@
 pub use crate::dimensions::Dimensions;
 pub use crate::intersections::closest_intersection;
+pub use crate::intersections::instersections;
 pub use crate::normal::Normal;
 pub use crate::ray::Ray;
 pub use crate::ray_intersections::RayIntersections;

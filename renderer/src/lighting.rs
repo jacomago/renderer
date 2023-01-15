@@ -1,7 +1,7 @@
 use colors::prelude::Color;
-use geometry::prelude::{Normal, Ray, Vector3D};
+use geometry::prelude::{instersections, Normal, Ray, Vector3D};
 
-use crate::colored::Colored;
+use crate::object::SceneObject;
 
 pub struct Light {
     position: Vector3D<f32>,
@@ -17,7 +17,9 @@ impl Light {
             intensity,
         }
     }
-
+    pub fn color(&self) -> &Color<f32> {
+        &self.color
+    }
     pub fn ray(&self, position: &Vector3D<f32>) -> Ray {
         Ray::new(self.position, self.position - *position)
     }
@@ -28,13 +30,25 @@ impl Light {
         normalized_r.dot(&shape.normal(position))
     }
 
-    pub fn surface_color(
+    pub fn light_ray_intersect_other_object(
         &self,
-        shape: &dyn Colored<Vector3D<f32>>,
+        objects: &[SceneObject],
         position: &Vector3D<f32>,
-        surface_coeff: f32,
-    ) -> Color<f32> {
-        let shape_color = shape.color(position).unwrap_or_default();
-        self.color * shape_color * surface_coeff
+        scene_object: &SceneObject,
+    ) -> bool {
+        let ray = self.ray(position);
+        if instersections(
+            &objects
+                .iter()
+                .filter(|o| *o != scene_object)
+                .copied()
+                .collect::<Vec<SceneObject>>(),
+            &ray,
+        )
+        .is_empty()
+        {
+            return false;
+        }
+        true
     }
 }
