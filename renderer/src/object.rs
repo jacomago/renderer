@@ -3,7 +3,7 @@ use geometry::prelude::{Contains, HorizontalPercentage, RayIntersections, Sphere
 
 use crate::colored::Colored;
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, PartialEq)]
 pub struct SceneObject {
     sphere: Sphere,
     coloring: Coloring<f32>,
@@ -12,6 +12,10 @@ pub struct SceneObject {
 impl SceneObject {
     pub fn new(sphere: Sphere, coloring: Coloring<f32>) -> Self {
         Self { sphere, coloring }
+    }
+
+    pub fn shape(&self) -> &Sphere {
+        &self.sphere
     }
 }
 

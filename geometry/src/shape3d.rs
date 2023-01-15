@@ -1,8 +1,11 @@
 use std::{fmt::Debug, vec};
 
 use crate::{
+    normal::Normal,
+    prelude::Ray,
+    ray_intersections::RayIntersections,
     shape::{Contains, HorizontalPercentage},
-    vectors::{Ray, Vector3D},
+    vectors::Vector3D,
 };
 
 #[derive(Debug, Clone, PartialEq, Copy)]
@@ -15,10 +18,6 @@ impl Sphere {
     pub fn new(position: Vector3D<f32>, radius: f32) -> Self {
         Self { position, radius }
     }
-}
-
-pub trait RayIntersections {
-    fn intersection(&self, ray: &Ray) -> Vec<Vector3D<f32>>;
 }
 
 impl RayIntersections for Sphere {
@@ -63,6 +62,13 @@ impl HorizontalPercentage<Vector3D<f32>> for Sphere {
         (self.position.x() - self.radius - position.x()).abs() / (2.0 * self.radius)
     }
 }
+
+impl Normal<f32> for Sphere {
+    fn normal(&self, p: &Vector3D<f32>) -> Vector3D<f32> {
+        (*p - self.position).normalize()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
