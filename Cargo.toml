@@ -1,2 +1,2 @@
 [workspace]
-members = ["geometry", "renderer", "image_lib", "colors"]
+members = ["geometry", "renderer", "image_lib", "colors", "examples"]
