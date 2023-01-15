@@ -52,3 +52,45 @@ impl Light {
         true
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use colors::prelude::Coloring;
+    use geometry::prelude::Sphere;
+
+    use super::*;
+
+    #[test]
+    fn test_light_ray_intersect_none() {
+        let object = SceneObject::new(Sphere::new(Vector3D::default(), 1.0), Coloring::default());
+        let light = Light::new(
+            Vector3D::new(1.0, 1.0, 1.0),
+            Color::default(),
+            Color::default(),
+        );
+        let position = Vector3D::default();
+
+        assert!(!light.light_ray_intersect_other_object(&[object], &position, &object));
+    }
+
+    #[test]
+    fn test_light_ray_intersect_one() {
+        let object = SceneObject::new(Sphere::new(Vector3D::default(), 1.0), Coloring::default());
+        let intersection_object = SceneObject::new(
+            Sphere::new(Vector3D::new(2.0, 0.0, 0.0), 1.0),
+            Coloring::default(),
+        );
+        let light = Light::new(
+            Vector3D::new(3.0, 0.0, 0.0),
+            Color::default(),
+            Color::default(),
+        );
+        let position = Vector3D::default();
+
+        assert!(light.light_ray_intersect_other_object(
+            &[object, intersection_object],
+            &position,
+            &object
+        ));
+    }
+}
